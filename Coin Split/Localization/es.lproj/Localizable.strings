@@ -1,0 +1,122 @@
+/* 
+  Localizable.strings (Español)
+  Coin Split
+  
+  Created by Рома Котов on 06.10.2025.
+*/
+
+// MARK: - Common
+"common.cancel" = "Cancelar";
+"common.save" = "Guardar";
+"common.delete" = "Eliminar";
+"common.share" = "Compartir";
+"common.edit" = "Editar";
+"common.clear" = "Limpiar";
+"common.total" = "Total";
+"common.participants" = "Participantes";
+
+// MARK: - Main Tab
+"tab.calculation" = "Cálculo";
+"tab.history" = "Historial";
+"tab.profile" = "Perfil";
+"tab.settings" = "Configuración";
+
+// MARK: - Calculator
+"calculator.title" = "Dividir cuenta";
+"calculator.subtitle" = "Rápido y simple";
+"calculator.bill_amount" = "Cantidad de la cuenta";
+"calculator.participants" = "Participantes";
+"calculator.split_mode.equal" = "Igual";
+"calculator.split_mode.percentage" = "Porcentajes";
+"calculator.split_mode.manual" = "Manual";
+"calculator.tips" = "Propinas";
+"calculator.per_person" = "Por persona";
+"calculator.participant_count" = "%d participantes";
+"calculator.bill" = "Cuenta";
+"calculator.tips_percentage" = "Propinas (%d%%)";
+"calculator.total" = "Total";
+"calculator.save" = "Guardar";
+"calculator.group_name" = "Nombre del grupo (opcional)";
+"calculator.group_name_placeholder" = "ej. Cena con amigos";
+"calculator.save_title" = "Guardar cálculo";
+
+// MARK: - History
+"history.title" = "Historial";
+"history.calculations_count" = "%d cálculos";
+"history.empty_title" = "El historial está vacío";
+"history.empty_subtitle" = "Crea tu primer cálculo";
+"history.clear_alert_title" = "¿Limpiar historial?";
+"history.clear_alert_message" = "Esta acción no se puede deshacer";
+"history.delete_alert_title" = "¿Eliminar cálculo?";
+"history.delete_alert_message" = "Todos los cálculos serán eliminados. Esta acción no se puede deshacer.";
+
+// MARK: - Profile
+"profile.title" = "Perfil";
+"profile.calculations" = "Cálculos";
+"profile.achievements" = "Logros";
+"profile.total" = "Total";
+"profile.achievements_title" = "Logros";
+"profile.motivation_title" = "¡Sigue así!";
+"profile.motivation_subtitle" = "Te esperan %d logros más";
+"profile.edit_title" = "Editar perfil";
+"profile.name" = "Nombre";
+"profile.name_placeholder" = "Ingresa nombre";
+
+// MARK: - Achievements
+"achievement.first_split" = "Primer paso";
+"achievement.first_split_desc" = "Hacer tu primera división de cuenta";
+"achievement.fair_split" = "Justicia";
+"achievement.fair_split_desc" = "Dividir cuenta igualmente entre 2+ personas";
+"achievement.mathematician" = "Matemático";
+"achievement.mathematician_desc" = "Usar modo de división por porcentajes";
+"achievement.generous" = "Generoso";
+"achievement.generous_desc" = "Agregar propinas más del 15%";
+"achievement.historian" = "Historiador";
+"achievement.historian_desc" = "Guardar primer cálculo en historial";
+"achievement.archivist" = "Archivista";
+"achievement.archivist_desc" = "Tener 10 cálculos guardados en historial";
+"achievement.flexible" = "Flexible";
+"achievement.flexible_desc" = "Usar entrada manual para cantidades de participantes";
+"achievement.precise" = "Rayo";
+"achievement.precise_desc" = "Aplicar redondeo por primera vez";
+
+// MARK: - Settings
+"settings.title" = "Configuración";
+"settings.personalization" = "Personalización de la aplicación";
+"settings.language" = "Idioma de interfaz";
+"settings.language_subtitle" = "Elige idioma";
+"settings.theme" = "Diseño de tema";
+"settings.theme_subtitle" = "Claro u oscuro";
+"settings.text_size" = "Tamaño de texto";
+"settings.text_size_subtitle" = "Estándar";
+"settings.danger_zone" = "Zona peligrosa";
+"settings.danger_zone_subtitle" = "Acciones irreversibles";
+"settings.clear_history" = "Limpiar todo el historial";
+"settings.clear_history_alert_title" = "¿Limpiar todo el historial?";
+"settings.clear_history_alert_message" = "Todos los cálculos serán eliminados. Esta acción no se puede deshacer.";
+
+// MARK: - Languages
+"language.russian" = "Русский";
+"language.english" = "English";
+"language.spanish" = "Español";
+"language.german" = "Deutsch";
+
+// MARK: - Themes
+"theme.light" = "Claro";
+"theme.dark" = "Oscuro";
+"theme.auto" = "Auto";
+
+// MARK: - Text Sizes
+"text_size.small" = "Pequeño";
+"text_size.medium" = "Mediano";
+"text_size.large" = "Grande";
+
+// MARK: - Split Detail
+"split_detail.participants" = "Participantes";
+"split_detail.details" = "Detalles";
+"split_detail.bill" = "Cuenta";
+"split_detail.tips" = "Propinas (%d%%)";
+"split_detail.total" = "Total";
+"split_detail.share" = "Compartir";
+"split_detail.delete" = "Eliminar";
+"split_detail.participant_number" = "Participante #%d";

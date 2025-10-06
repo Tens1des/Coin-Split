@@ -1,0 +1,122 @@
+/* 
+  Localizable.strings
+  Coin Split
+  
+  Created by Рома Котов on 06.10.2025.
+*/
+
+// MARK: - Common
+"common.cancel" = "Отмена";
+"common.save" = "Сохранить";
+"common.delete" = "Удалить";
+"common.share" = "Поделиться";
+"common.edit" = "Редактировать";
+"common.clear" = "Очистить";
+"common.total" = "Всего";
+"common.participants" = "Участники";
+
+// MARK: - Main Tab
+"tab.calculation" = "Расчёт";
+"tab.history" = "История";
+"tab.profile" = "Профиль";
+"tab.settings" = "Настройки";
+
+// MARK: - Calculator
+"calculator.title" = "Разделить счёт";
+"calculator.subtitle" = "Быстро и просто";
+"calculator.bill_amount" = "Сумма счёта";
+"calculator.participants" = "Участники";
+"calculator.split_mode.equal" = "Поровну";
+"calculator.split_mode.percentage" = "Проценты";
+"calculator.split_mode.manual" = "Вручную";
+"calculator.tips" = "Чаевые";
+"calculator.per_person" = "С каждого";
+"calculator.participant_count" = "%d участника";
+"calculator.bill" = "Счёт";
+"calculator.tips_percentage" = "Чаевые (%d%%)";
+"calculator.total" = "Итого";
+"calculator.save" = "Сохранить";
+"calculator.group_name" = "Название группы (опционально)";
+"calculator.group_name_placeholder" = "Например: Обед с друзьями";
+"calculator.save_title" = "Сохранить расчёт";
+
+// MARK: - History
+"history.title" = "История";
+"history.calculations_count" = "%d расчётов";
+"history.empty_title" = "История пуста";
+"history.empty_subtitle" = "Создайте первый расчёт";
+"history.clear_alert_title" = "Очистить историю?";
+"history.clear_alert_message" = "Это действие нельзя отменить";
+"history.delete_alert_title" = "Удалить расчёт?";
+"history.delete_alert_message" = "Все расчёты будут удалены. Это действие нельзя отменить.";
+
+// MARK: - Profile
+"profile.title" = "Профиль";
+"profile.calculations" = "Расчётов";
+"profile.achievements" = "Ачивок";
+"profile.total" = "Всего";
+"profile.achievements_title" = "Достижения";
+"profile.motivation_title" = "Продолжайте в том же духе!";
+"profile.motivation_subtitle" = "Ещё %d достижений ждут вас";
+"profile.edit_title" = "Редактировать профиль";
+"profile.name" = "Имя";
+"profile.name_placeholder" = "Введите имя";
+
+// MARK: - Achievements
+"achievement.first_split" = "Первый шаг";
+"achievement.first_split_desc" = "Сделать свой первый раздел счёта";
+"achievement.fair_split" = "Справедливость";
+"achievement.fair_split_desc" = "Разделить счёт поровну между 2+ людьми";
+"achievement.mathematician" = "Математик";
+"achievement.mathematician_desc" = "Использовать режим деления по процентам";
+"achievement.generous" = "Щедрый";
+"achievement.generous_desc" = "Добавить чаевые более 15%";
+"achievement.historian" = "Историк";
+"achievement.historian_desc" = "Сохранить первый расчёт в истории";
+"achievement.archivist" = "Архивариус";
+"achievement.archivist_desc" = "Иметь в истории 10 сохранённых расчетов";
+"achievement.flexible" = "Гибкость";
+"achievement.flexible_desc" = "Использовать ручной ввод сумм для участников";
+"achievement.precise" = "Молния";
+"achievement.precise_desc" = "Впервые применить округление суммы";
+
+// MARK: - Settings
+"settings.title" = "Настройки";
+"settings.personalization" = "Персонализация приложения";
+"settings.language" = "Язык интерфейса";
+"settings.language_subtitle" = "Выберите язык";
+"settings.theme" = "Тема оформления";
+"settings.theme_subtitle" = "Светлая или тёмная";
+"settings.text_size" = "Размер текста";
+"settings.text_size_subtitle" = "Стандартный";
+"settings.danger_zone" = "Опасная зона";
+"settings.danger_zone_subtitle" = "Необратимые действия";
+"settings.clear_history" = "Очистить всю историю";
+"settings.clear_history_alert_title" = "Очистить всю историю?";
+"settings.clear_history_alert_message" = "Все расчёты будут удалены. Это действие нельзя отменить.";
+
+// MARK: - Languages
+"language.russian" = "Русский";
+"language.english" = "English";
+"language.spanish" = "Español";
+"language.german" = "Deutsch";
+
+// MARK: - Themes
+"theme.light" = "Светлая";
+"theme.dark" = "Темная";
+"theme.auto" = "Авто";
+
+// MARK: - Text Sizes
+"text_size.small" = "Малый";
+"text_size.medium" = "Средний";
+"text_size.large" = "Крупный";
+
+// MARK: - Split Detail
+"split_detail.participants" = "Участники";
+"split_detail.details" = "Детали";
+"split_detail.bill" = "Счёт";
+"split_detail.tips" = "Чаевые (%d%%)";
+"split_detail.total" = "Итого";
+"split_detail.share" = "Поделиться";
+"split_detail.delete" = "Удалить";
+"split_detail.participant_number" = "Участник #%d";

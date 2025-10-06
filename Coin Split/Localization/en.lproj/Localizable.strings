@@ -1,0 +1,122 @@
+/* 
+  Localizable.strings (English)
+  Coin Split
+  
+  Created by Рома Котов on 06.10.2025.
+*/
+
+// MARK: - Common
+"common.cancel" = "Cancel";
+"common.save" = "Save";
+"common.delete" = "Delete";
+"common.share" = "Share";
+"common.edit" = "Edit";
+"common.clear" = "Clear";
+"common.total" = "Total";
+"common.participants" = "Participants";
+
+// MARK: - Main Tab
+"tab.calculation" = "Calculation";
+"tab.history" = "History";
+"tab.profile" = "Profile";
+"tab.settings" = "Settings";
+
+// MARK: - Calculator
+"calculator.title" = "Split Bill";
+"calculator.subtitle" = "Quick and simple";
+"calculator.bill_amount" = "Bill amount";
+"calculator.participants" = "Participants";
+"calculator.split_mode.equal" = "Equal";
+"calculator.split_mode.percentage" = "Percentages";
+"calculator.split_mode.manual" = "Manual";
+"calculator.tips" = "Tips";
+"calculator.per_person" = "Per person";
+"calculator.participant_count" = "%d participants";
+"calculator.bill" = "Bill";
+"calculator.tips_percentage" = "Tips (%d%%)";
+"calculator.total" = "Total";
+"calculator.save" = "Save";
+"calculator.group_name" = "Group name (optional)";
+"calculator.group_name_placeholder" = "e.g. Dinner with friends";
+"calculator.save_title" = "Save calculation";
+
+// MARK: - History
+"history.title" = "History";
+"history.calculations_count" = "%d calculations";
+"history.empty_title" = "History is empty";
+"history.empty_subtitle" = "Create your first calculation";
+"history.clear_alert_title" = "Clear history?";
+"history.clear_alert_message" = "This action cannot be undone";
+"history.delete_alert_title" = "Delete calculation?";
+"history.delete_alert_message" = "All calculations will be deleted. This action cannot be undone.";
+
+// MARK: - Profile
+"profile.title" = "Profile";
+"profile.calculations" = "Calculations";
+"profile.achievements" = "Achievements";
+"profile.total" = "Total";
+"profile.achievements_title" = "Achievements";
+"profile.motivation_title" = "Keep up the good work!";
+"profile.motivation_subtitle" = "%d more achievements await you";
+"profile.edit_title" = "Edit profile";
+"profile.name" = "Name";
+"profile.name_placeholder" = "Enter name";
+
+// MARK: - Achievements
+"achievement.first_split" = "First Step";
+"achievement.first_split_desc" = "Make your first bill split";
+"achievement.fair_split" = "Fairness";
+"achievement.fair_split_desc" = "Split bill equally between 2+ people";
+"achievement.mathematician" = "Mathematician";
+"achievement.mathematician_desc" = "Use percentage split mode";
+"achievement.generous" = "Generous";
+"achievement.generous_desc" = "Add tips more than 15%";
+"achievement.historian" = "Historian";
+"achievement.historian_desc" = "Save first calculation in history";
+"achievement.archivist" = "Archivist";
+"achievement.archivist_desc" = "Have 10 saved calculations in history";
+"achievement.flexible" = "Flexible";
+"achievement.flexible_desc" = "Use manual input for participant amounts";
+"achievement.precise" = "Lightning";
+"achievement.precise_desc" = "Apply rounding for the first time";
+
+// MARK: - Settings
+"settings.title" = "Settings";
+"settings.personalization" = "Application personalization";
+"settings.language" = "Interface language";
+"settings.language_subtitle" = "Choose language";
+"settings.theme" = "Theme design";
+"settings.theme_subtitle" = "Light or dark";
+"settings.text_size" = "Text size";
+"settings.text_size_subtitle" = "Standard";
+"settings.danger_zone" = "Dangerous zone";
+"settings.danger_zone_subtitle" = "Irreversible actions";
+"settings.clear_history" = "Clear all history";
+"settings.clear_history_alert_title" = "Clear all history?";
+"settings.clear_history_alert_message" = "All calculations will be deleted. This action cannot be undone.";
+
+// MARK: - Languages
+"language.russian" = "Русский";
+"language.english" = "English";
+"language.spanish" = "Español";
+"language.german" = "Deutsch";
+
+// MARK: - Themes
+"theme.light" = "Light";
+"theme.dark" = "Dark";
+"theme.auto" = "Auto";
+
+// MARK: - Text Sizes
+"text_size.small" = "Small";
+"text_size.medium" = "Medium";
+"text_size.large" = "Large";
+
+// MARK: - Split Detail
+"split_detail.participants" = "Participants";
+"split_detail.details" = "Details";
+"split_detail.bill" = "Bill";
+"split_detail.tips" = "Tips (%d%%)";
+"split_detail.total" = "Total";
+"split_detail.share" = "Share";
+"split_detail.delete" = "Delete";
+"split_detail.participant_number" = "Participant #%d";
