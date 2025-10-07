@@ -50,15 +50,21 @@ struct SplitDetailView: View {
                         HStack(spacing: 4) {
                             Image(systemName: "person.2.fill")
                                 .font(.system(size: 14))
-                                .foregroundColor(.purple.opacity(0.7))
+                                .foregroundColor(.purple)
                             Text("\(split.participantCount) участника")
                                 .font(.system(size: 14))
-                                .foregroundColor(.purple.opacity(0.7))
+                                .foregroundColor(.purple)
                         }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.purple.opacity(0.3), lineWidth: 1.5)
+                        )
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 24)
-                    .background(Color.white)
+                    .background(Color.adaptiveCardBackground)
                     .cornerRadius(16)
                     .padding(.horizontal)
                     
@@ -74,12 +80,12 @@ struct SplitDetailView: View {
                                     // Аватар
                                     ZStack {
                                         Circle()
-                                            .fill(participant.color.color)
+                                            .fill(Color.white)
                                             .frame(width: 44, height: 44)
                                         
-                                        Text(String(participant.name.prefix(1)))
+                                        Text("\(index + 1)")
                                             .font(.system(size: 18, weight: .bold))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(participant.color.color)
                                     }
                                     
                                     VStack(alignment: .leading, spacing: 2) {
@@ -94,14 +100,19 @@ struct SplitDetailView: View {
                                     
                                     Text("\(Int(participant.amount))")
                                         .font(.system(size: 18, weight: .bold))
+                                        .foregroundColor(participant.color.color)
                                 }
                                 .padding()
-                                .background(Color.white.opacity(0.5))
+                                .background(participant.color.color.opacity(0.1))
                                 .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.white, lineWidth: 2)
+                                )
                             }
                         }
                         .padding()
-                        .background(Color.white)
+                        .background(Color.adaptiveCardBackground)
                         .cornerRadius(16)
                         .padding(.horizontal)
                     }
@@ -143,39 +154,25 @@ struct SplitDetailView: View {
                             }
                         }
                         .padding()
-                        .background(Color.white)
+                        .background(Color.adaptiveCardBackground)
                         .cornerRadius(16)
                         .padding(.horizontal)
                     }
                     
-                    // Кнопки действий
-                    HStack(spacing: 12) {
-                        Button(action: {
-                            // Поделиться
-                            shareContent()
-                        }) {
-                            HStack {
-                                Image(systemName: "square.and.arrow.up")
-                                Text("Поделиться")
-                                    .font(.system(size: 16, weight: .semibold))
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.purple)
-                            .cornerRadius(16)
-                        }
-                        
-                        Button(action: {
-                            showingDeleteAlert = true
-                        }) {
+                    // Кнопка удаления
+                    Button(action: {
+                        showingDeleteAlert = true
+                    }) {
+                        HStack {
                             Image(systemName: "trash.fill")
-                                .font(.system(size: 18))
-                                .foregroundColor(.red)
-                                .frame(width: 52, height: 52)
-                                .background(Color.white)
-                                .cornerRadius(16)
+                            Text("Удалить")
+                                .font(.system(size: 16, weight: .semibold))
                         }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(16)
                     }
                     .padding(.horizontal)
                     
@@ -199,28 +196,6 @@ struct SplitDetailView: View {
         formatter.locale = Locale(identifier: "ru_RU")
         formatter.dateFormat = "d MMMM, HH:mm"
         return formatter.string(from: date)
-    }
-    
-    private func shareContent() {
-        let text = """
-        \(split.name)
-        Дата: \(formattedDate(split.date))
-        
-        С каждого: \(Int(split.amountPerPerson)) ₽
-        Участников: \(split.participantCount)
-        
-        Счёт: \(Int(split.billAmount)) ₽
-        Чаевые: \(Int(split.tipAmount)) ₽ (\(Int(split.tipPercentage))%)
-        Итого: \(Int(split.totalAmount)) ₽
-        """
-        
-        let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first,
-           let rootVC = window.rootViewController {
-            rootVC.present(av, animated: true)
-        }
     }
 }
 

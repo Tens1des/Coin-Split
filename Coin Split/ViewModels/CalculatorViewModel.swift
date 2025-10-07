@@ -39,21 +39,31 @@ class CalculatorViewModel: ObservableObject {
         createParticipants()
     }
     
-    private func createParticipants() {
+    func createParticipants(withNames names: [String] = []) {
         let colors: [Participant.ParticipantColor] = [.blue, .purple, .pink, .orange, .green, .red, .cyan, .yellow]
         participants = (1...participantCount).map { index in
-            Participant(
-                name: "Участник #\(index)",
+            let participantName: String
+            if names.indices.contains(index - 1) && !names[index - 1].isEmpty {
+                participantName = names[index - 1]
+            } else {
+                participantName = "Участник \(index)"
+            }
+            
+            return Participant(
+                name: participantName,
                 amount: amountPerPerson,
                 percentage: 100.0 / Double(participantCount),
-                color: colors[index % colors.count]
+                color: colors[(index - 1) % colors.count]
             )
         }
     }
     
-    func saveSplit(name: String) {
+    func saveSplit(name: String?, participantNames: [String] = []) {
+        // Создаем участников с именами перед сохранением
+        createParticipants(withNames: participantNames)
+        
         let split = Split(
-            name: name,
+            name: name ?? "Безымянный расчёт",
             date: Date(),
             totalAmount: totalAmount,
             participants: participants,

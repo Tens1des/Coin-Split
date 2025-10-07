@@ -9,241 +9,37 @@ import SwiftUI
 
 struct CalculatorView: View {
     @StateObject private var viewModel = CalculatorViewModel()
-    @State private var showingNameInput = false
     @State private var splitName = ""
+    @State private var participantNames: [String] = []
     @ObservedObject var localizationManager = LocalizationManager.shared
+    
+    let participantColors: [Color] = [.purple, .blue, .pink, .orange, .green, .red, .yellow, .indigo, .teal, .mint, .cyan, .brown]
     
     var body: some View {
         ZStack {
-            Color(UIColor.systemGroupedBackground)
-                .ignoresSafeArea()
+            // Градиентный фон
+            LinearGradient(
+                colors: [
+                    Color(red: 0.85, green: 0.85, blue: 0.95),
+                    Color(red: 0.92, green: 0.88, blue: 0.98)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
             ScrollView {
                 VStack(spacing: 20) {
-                    // Заголовок
-                    Text(LocalizationKeys.calculatorTitle.localized)
-                        .font(.dynamicTitle())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
-                        .padding(.top, 10)
+                    headerView
+                    billAmountCard
+                    participantsCard
+                    splitModeButtons
+                    tipsCard
                     
-                    // Карточка ввода суммы
-                    VStack(spacing: 16) {
-                        HStack {
-                            Text(LocalizationKeys.billAmount.localized)
-                                .font(.dynamicBody(.medium))
-                                .foregroundColor(.adaptiveSecondaryText)
-                            Spacer()
-                        }
-                        
-                        HStack(spacing: 8) {
-                            TextField("0", text: $viewModel.billAmountString)
-                                .font(.system(size: 48, weight: .bold))
-                                .keyboardType(.decimalPad)
-                                .multilineTextAlignment(.leading)
-                                .onChange(of: viewModel.billAmountString) { _ in
-                                    viewModel.calculateSplit()
-                                }
-                            
-                            Text("₽")
-                                .font(.system(size: 32, weight: .semibold))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(16)
-                    .padding(.horizontal)
-                    
-                    // Участники
-                    VStack(spacing: 12) {
-                        HStack {
-                            Image(systemName: "person.2.fill")
-                                .foregroundColor(.purple)
-                            Text(LocalizationKeys.calculatorParticipants.localized)
-                                .font(.dynamicBody(.medium))
-                            Spacer()
-                            
-                            // +/- кнопки
-                            HStack(spacing: 12) {
-                                Button(action: {
-                                    if viewModel.participantCount > 2 {
-                                        viewModel.participantCount -= 1
-                                        viewModel.calculateSplit()
-                                    }
-                                }) {
-                                    Image(systemName: "minus")
-                                        .font(.system(size: 14, weight: .bold))
-                                        .foregroundColor(.white)
-                                        .frame(width: 32, height: 32)
-                                        .background(Color.gray.opacity(0.3))
-                                        .clipShape(Circle())
-                                }
-                                
-                                Text("\(viewModel.participantCount)")
-                                    .font(.system(size: 18, weight: .bold))
-                                    .frame(width: 40)
-                                
-                                Button(action: {
-                                    viewModel.participantCount += 1
-                                    viewModel.calculateSplit()
-                                }) {
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 14, weight: .bold))
-                                        .foregroundColor(.white)
-                                        .frame(width: 32, height: 32)
-                                        .background(Color.purple)
-                                        .clipShape(Circle())
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(16)
-                    .padding(.horizontal)
-                    
-                    // Режимы деления
-                    HStack(spacing: 12) {
-                        SplitModeButton(
-                            title: LocalizationKeys.splitModeEqual.localized,
-                            isSelected: viewModel.splitMode == .equal,
-                            action: {
-                                viewModel.splitMode = .equal
-                                viewModel.calculateSplit()
-                            }
-                        )
-                        
-                        SplitModeButton(
-                            title: LocalizationKeys.splitModePercentage.localized,
-                            isSelected: viewModel.splitMode == .percentage,
-                            action: {
-                                viewModel.splitMode = .percentage
-                                viewModel.calculateSplit()
-                            }
-                        )
-                        
-                        SplitModeButton(
-                            title: LocalizationKeys.splitModeManual.localized,
-                            isSelected: viewModel.splitMode == .manual,
-                            action: {
-                                viewModel.splitMode = .manual
-                                viewModel.calculateSplit()
-                            }
-                        )
-                    }
-                    .padding(.horizontal)
-                    
-                    // Чаевые
-                    VStack(spacing: 12) {
-                        HStack {
-                            Text(LocalizationKeys.tips.localized)
-                                .font(.dynamicBody(.medium))
-                            Spacer()
-                            Text("\(Int(viewModel.tipPercentage))%")
-                                .font(.dynamicHeadline(.bold))
-                                .foregroundColor(.purple)
-                        }
-                        
-                        HStack(spacing: 8) {
-                            Text("0%")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
-                            
-                            Slider(value: $viewModel.tipPercentage, in: 0...25, step: 5)
-                                .accentColor(.purple)
-                                .onChange(of: viewModel.tipPercentage) { _ in
-                                    viewModel.calculateSplit()
-                                }
-                            
-                            Text("25%")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(16)
-                    .padding(.horizontal)
-                    
-                    // Результат
                     if viewModel.billAmount > 0 {
-                        VStack(spacing: 16) {
-                            Text(LocalizationKeys.perPerson.localized)
-                                .font(.dynamicBody())
-                                .foregroundColor(.adaptiveSecondaryText)
-                            
-                            Text("\(Int(viewModel.amountPerPerson))")
-                                .font(.system(size: 64, weight: .bold))
-                                .foregroundColor(.purple)
-                            
-                            HStack(spacing: 4) {
-                                Image(systemName: "person.2.fill")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.purple.opacity(0.7))
-                                Text(LocalizationKeys.participantCount.localized(viewModel.participantCount))
-                                    .font(.dynamicCaption())
-                                    .foregroundColor(.purple.opacity(0.7))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 24)
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .padding(.horizontal)
-                        
-                        // Детали
-                        VStack(spacing: 12) {
-                            HStack {
-                                Text(LocalizationKeys.bill.localized)
-                                    .foregroundColor(.adaptiveSecondaryText)
-                                Spacer()
-                                Text("\(Int(viewModel.billAmount))")
-                                    .font(.dynamicBody(.medium))
-                            }
-                            
-                            if viewModel.tipPercentage > 0 {
-                                HStack {
-                                    Text(LocalizationKeys.tipsPercentage.localized(Int(viewModel.tipPercentage)))
-                                        .foregroundColor(.adaptiveSecondaryText)
-                                    Spacer()
-                                    Text("\(Int(viewModel.tipAmount))")
-                                        .font(.dynamicBody(.medium))
-                                }
-                            }
-                            
-                            Divider()
-                            
-                            HStack {
-                                Text(LocalizationKeys.calculatorTotal.localized)
-                                    .font(.dynamicHeadline(.bold))
-                                Spacer()
-                                Text("\(Int(viewModel.totalAmount))")
-                                    .font(.dynamicHeadline(.bold))
-                                    .foregroundColor(.purple)
-                            }
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .padding(.horizontal)
-                        
-                        // Кнопка сохранить
-                        Button(action: {
-                            showingNameInput = true
-                        }) {
-                            HStack {
-                                Image(systemName: "square.and.arrow.down.fill")
-                                Text(LocalizationKeys.calculatorSave.localized)
-                                    .font(.dynamicHeadline(.semibold))
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.purple)
-                            .cornerRadius(16)
-                        }
-                        .padding(.horizontal)
+                        groupNameCard
+                        combinedResultCard
+                        saveButton
                     }
                     
                     Spacer(minLength: 100)
@@ -251,19 +47,301 @@ struct CalculatorView: View {
                 .padding(.bottom, 20)
             }
         }
-        .sheet(isPresented: $showingNameInput) {
-            SaveSplitSheet(
-                splitName: $splitName,
-                onSave: {
-                    viewModel.saveSplit(name: splitName.isEmpty ? "Безымянный расчёт" : splitName)
-                    splitName = ""
-                    showingNameInput = false
-                },
-                onCancel: {
-                    showingNameInput = false
+    }
+    
+    // MARK: - Header
+    private var headerView: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(LocalizationKeys.calculatorTitle.localized)
+                .font(.system(size: 28, weight: .bold))
+            Text(LocalizationKeys.calculatorSubtitle.localized)
+                .font(.system(size: 16))
+                .foregroundColor(.adaptiveSecondaryText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
+        .padding(.top, 10)
+    }
+    
+    // MARK: - Bill Amount Card
+    private var billAmountCard: some View {
+        VStack(spacing: 12) {
+            Text(LocalizationKeys.billAmount.localized)
+                .font(.system(size: 14))
+                .foregroundColor(.adaptiveSecondaryText)
+            
+            TextField("0", text: $viewModel.billAmountString)
+                .font(.system(size: 56, weight: .bold))
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.center)
+                .onChange(of: viewModel.billAmountString) { _ in
+                    viewModel.calculateSplit()
+                }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 24)
+        .background(Color.adaptiveCardBackground)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Participants Card
+    private var participantsCard: some View {
+        HStack {
+            Text(LocalizationKeys.calculatorParticipants.localized)
+                .font(.system(size: 16, weight: .medium))
+            
+            Spacer()
+            
+            HStack(spacing: 16) {
+                Button(action: {
+                    if viewModel.participantCount > 2 {
+                        viewModel.participantCount -= 1
+                        viewModel.calculateSplit()
+                    }
+                }) {
+                    Image(systemName: "minus")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.adaptiveSecondaryText)
+                        .frame(width: 36, height: 36)
+                        .background(Color.gray.opacity(0.1))
+                        .clipShape(Circle())
+                }
+                
+                Text("\(viewModel.participantCount)")
+                    .font(.system(size: 20, weight: .bold))
+                    .frame(minWidth: 40)
+                
+                Button(action: {
+                    if viewModel.participantCount < 10 {
+                        viewModel.participantCount += 1
+                        viewModel.calculateSplit()
+                    }
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 36, height: 36)
+                        .background(Color.purple)
+                        .clipShape(Circle())
+                }
+            }
+        }
+        .padding()
+        .background(Color.adaptiveCardBackground)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Split Mode Buttons
+    private var splitModeButtons: some View {
+        HStack(spacing: 12) {
+            SplitModeButton(
+                title: LocalizationKeys.splitModeEqual.localized,
+                isSelected: viewModel.splitMode == .equal,
+                action: {
+                    viewModel.splitMode = .equal
+                    viewModel.calculateSplit()
+                }
+            )
+            
+            SplitModeButton(
+                title: LocalizationKeys.splitModePercentage.localized,
+                isSelected: viewModel.splitMode == .percentage,
+                action: {
+                    viewModel.splitMode = .percentage
+                    viewModel.calculateSplit()
+                }
+            )
+            
+            SplitModeButton(
+                title: LocalizationKeys.splitModeManual.localized,
+                isSelected: viewModel.splitMode == .manual,
+                action: {
+                    viewModel.splitMode = .manual
+                    viewModel.calculateSplit()
                 }
             )
         }
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Tips Card
+    private var tipsCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Text(LocalizationKeys.tips.localized)
+                    .font(.system(size: 16, weight: .medium))
+                Spacer()
+                Text("\(Int(viewModel.tipPercentage))%")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.purple)
+            }
+            
+            VStack(spacing: 12) {
+                Slider(value: $viewModel.tipPercentage, in: 0...20, step: 5)
+                    .accentColor(.purple)
+                    .onChange(of: viewModel.tipPercentage) { _ in
+                        viewModel.calculateSplit()
+                    }
+                
+                HStack {
+                    ForEach([0, 5, 10, 15, 20], id: \.self) { percent in
+                        Text("\(percent)%")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Int(viewModel.tipPercentage) == percent ? .purple : .adaptiveSecondaryText)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(Color.adaptiveCardBackground)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Group Name Card
+    private var groupNameCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(LocalizationKeys.groupName.localized)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.adaptiveSecondaryText)
+            
+            TextField(LocalizationKeys.groupNamePlaceholder.localized, text: $splitName)
+                .font(.system(size: 16))
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(12)
+        }
+        .padding()
+        .background(Color.adaptiveCardBackground)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Combined Result Card
+    private var combinedResultCard: some View {
+        VStack(spacing: 20) {
+            // "С каждого" секция
+            VStack(spacing: 12) {
+                Text(LocalizationKeys.perPerson.localized)
+                    .font(.system(size: 14))
+                    .foregroundColor(.adaptiveSecondaryText)
+                
+                Text(String(format: "%.2f", viewModel.amountPerPerson))
+                    .font(.system(size: 48, weight: .bold))
+                    .foregroundColor(.purple)
+            }
+            
+            // Участники
+            VStack(spacing: 12) {
+                ForEach(0..<viewModel.participantCount, id: \.self) { index in
+                    HStack(spacing: 12) {
+                        // Имя участника (редактируемое)
+                        TextField("Участник \(index + 1)", text: Binding(
+                            get: {
+                                if participantNames.indices.contains(index) && !participantNames[index].isEmpty {
+                                    return participantNames[index]
+                                }
+                                return "Участник \(index + 1)"
+                            },
+                            set: { newValue in
+                                while participantNames.count <= index {
+                                    participantNames.append("")
+                                }
+                                participantNames[index] = newValue
+                            }
+                        ))
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                        
+                        Spacer()
+                        
+                        Text(String(format: "%.2f", viewModel.amountPerPerson))
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .background(
+                        LinearGradient(
+                            colors: [
+                                participantColors[index % participantColors.count],
+                                participantColors[index % participantColors.count].opacity(0.8)
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(16)
+                }
+            }
+            
+            // Детали (итого)
+            VStack(spacing: 16) {
+                HStack {
+                    Text(LocalizationKeys.bill.localized)
+                        .font(.system(size: 16))
+                        .foregroundColor(.adaptiveSecondaryText)
+                    Spacer()
+                    Text(String(format: "%.2f", viewModel.billAmount))
+                        .font(.system(size: 16, weight: .semibold))
+                }
+                
+                if viewModel.tipPercentage > 0 {
+                    HStack {
+                        Text(LocalizationKeys.tipsPercentage.localized(Int(viewModel.tipPercentage)))
+                            .font(.system(size: 16))
+                            .foregroundColor(.adaptiveSecondaryText)
+                        Spacer()
+                        Text(String(format: "%.2f", viewModel.tipAmount))
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                }
+                
+                Divider()
+                
+                HStack {
+                    Text(LocalizationKeys.calculatorTotal.localized)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                    Text(String(format: "%.2f", viewModel.totalAmount))
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.purple)
+                }
+            }
+        }
+        .padding()
+        .background(Color.adaptiveCardBackground)
+        .cornerRadius(20)
+        .padding(.horizontal)
+        .onAppear {
+            if participantNames.isEmpty {
+                participantNames = Array(repeating: "", count: 10)
+            }
+        }
+    }
+    
+    // MARK: - Save Button
+    private var saveButton: some View {
+        Button(action: {
+            viewModel.saveSplit(name: splitName.isEmpty ? nil : splitName, participantNames: participantNames)
+            splitName = ""
+            participantNames = Array(repeating: "", count: 10)
+        }) {
+            HStack {
+                Image(systemName: "square.and.arrow.down.fill")
+                    .font(.system(size: 20))
+                Text(LocalizationKeys.calculatorSave.localized)
+                    .font(.system(size: 18, weight: .semibold))
+            }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.purple)
+            .cornerRadius(16)
+        }
+        .padding(.horizontal)
     }
 }
 
@@ -277,54 +355,13 @@ struct SplitModeButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 14, weight: isSelected ? .semibold : .medium))
-                .foregroundColor(isSelected ? .white : .primary)
-                .frame(maxWidth: .infinity)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(isSelected ? .white : .adaptiveSecondaryText)
+                .padding(.horizontal, 20)
                 .padding(.vertical, 12)
-                .background(isSelected ? Color.purple : Color.white)
-                .cornerRadius(12)
-        }
-    }
-}
-
-// MARK: - Save Split Sheet
-
-struct SaveSplitSheet: View {
-    @Binding var splitName: String
-    let onSave: () -> Void
-    let onCancel: () -> Void
-    @ObservedObject var localizationManager = LocalizationManager.shared
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                Text(LocalizationKeys.groupName.localized)
-                    .font(.dynamicBody(.medium))
-                    .foregroundColor(.adaptiveSecondaryText)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                TextField(LocalizationKeys.groupNamePlaceholder.localized, text: $splitName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .font(.dynamicBody())
-                
-                Spacer()
-            }
-            .padding()
-            .navigationTitle(LocalizationKeys.saveTitle.localized)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(LocalizationKeys.cancel.localized) {
-                        onCancel()
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(LocalizationKeys.save.localized) {
-                        onSave()
-                    }
-                    .fontWeight(.semibold)
-                }
-            }
+                .frame(maxWidth: .infinity)
+                .background(isSelected ? Color.purple : Color.adaptiveCardBackground)
+                .cornerRadius(16)
         }
     }
 }
@@ -332,4 +369,3 @@ struct SaveSplitSheet: View {
 #Preview {
     CalculatorView()
 }
-

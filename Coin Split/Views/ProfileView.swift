@@ -40,7 +40,7 @@ struct ProfileView: View {
                                 )
                                 .frame(width: 100, height: 100)
                             
-                            Text(dataManager.profile.avatar)
+                            Image(systemName: dataManager.profile.avatar.isEmpty ? "person.fill" : dataManager.profile.avatar)
                                 .font(.system(size: 48, weight: .bold))
                                 .foregroundColor(.white)
                             
@@ -100,7 +100,7 @@ struct ProfileView: View {
                         }
                     }
                     .padding()
-                    .background(Color.white)
+                    .background(Color.adaptiveCardBackground)
                     .cornerRadius(20)
                     .padding(.horizontal)
                     
@@ -245,47 +245,82 @@ struct EditProfileSheet: View {
     let onSave: (UserProfile) -> Void
     
     @State private var name: String
+    @State private var selectedIcon: String
     @ObservedObject var localizationManager = LocalizationManager.shared
+    
+    let avatarIcons = ["person.fill", "star.fill", "heart.fill", "bolt.fill", 
+                       "flame.fill", "crown.fill", "leaf.fill", "moon.fill",
+                       "sun.max.fill", "sparkles", "trophy.fill", "shield.fill"]
     
     init(profile: UserProfile, onSave: @escaping (UserProfile) -> Void) {
         self.profile = profile
         self.onSave = onSave
         _name = State(initialValue: profile.name)
+        _selectedIcon = State(initialValue: profile.avatar.isEmpty ? "person.fill" : profile.avatar)
     }
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                // Аватар
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.purple, Color.blue],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Аватар
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.purple, Color.blue],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
                             )
-                        )
-                        .frame(width: 100, height: 100)
+                            .frame(width: 100, height: 100)
+                        
+                        Image(systemName: selectedIcon)
+                            .font(.system(size: 48, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 20)
                     
-                    Text(String(name.prefix(1)))
-                        .font(.system(size: 48, weight: .bold))
-                        .foregroundColor(.white)
-                }
-                .padding(.top, 20)
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(LocalizationKeys.name.localized)
-                        .font(.dynamicBody(.medium))
-                        .foregroundColor(.adaptiveSecondaryText)
+                    // Сетка иконок
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Выберите иконку")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.secondary)
+                        
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 60))], spacing: 12) {
+                            ForEach(avatarIcons, id: \.self) { icon in
+                                Button(action: {
+                                    selectedIcon = icon
+                                }) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(selectedIcon == icon ? Color.purple : Color.gray.opacity(0.2))
+                                            .frame(width: 60, height: 60)
+                                        
+                                        Image(systemName: icon)
+                                            .font(.system(size: 24, weight: .semibold))
+                                            .foregroundColor(selectedIcon == icon ? .white : .gray)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
                     
-                    TextField(LocalizationKeys.namePlaceholder.localized, text: $name)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .font(.dynamicBody())
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(LocalizationKeys.name.localized)
+                            .font(.dynamicBody(.medium))
+                            .foregroundColor(.adaptiveSecondaryText)
+                        
+                        TextField(LocalizationKeys.namePlaceholder.localized, text: $name)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.dynamicBody())
+                    }
+                    .padding(.horizontal)
+                    
+                    Spacer(minLength: 50)
                 }
-                .padding(.horizontal)
-                
-                Spacer()
+                .padding(.bottom, 20)
             }
             .navigationTitle(LocalizationKeys.editTitle.localized)
             .navigationBarTitleDisplayMode(.inline)
@@ -299,7 +334,7 @@ struct EditProfileSheet: View {
                     Button(LocalizationKeys.save.localized) {
                         var updatedProfile = profile
                         updatedProfile.name = name.isEmpty ? "Пользователь" : name
-                        updatedProfile.avatar = String(updatedProfile.name.prefix(1))
+                        updatedProfile.avatar = selectedIcon
                         onSave(updatedProfile)
                     }
                     .fontWeight(.semibold)

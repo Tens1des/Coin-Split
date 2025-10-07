@@ -95,6 +95,7 @@ struct HistoryView: View {
 
 struct HistoryCard: View {
     let split: Split
+    @ObservedObject var localizationManager = LocalizationManager.shared
     
     var body: some View {
         HStack(spacing: 16) {
@@ -124,16 +125,16 @@ struct HistoryCard: View {
                 }
                 
                 HStack(spacing: 4) {
-                    Text("\(Int(split.amountPerPerson)) ₽")
+                    Text("\(Int(split.amountPerPerson))")
                         .font(.system(size: 28, weight: .bold))
                         .foregroundColor(.primary)
                     
-                    Text("/ \(Int(split.totalAmount)) ₽ всего")
+                    Text("/ \(Int(split.totalAmount)) \(LocalizationKeys.total.localized)")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
                 }
                 
-                Text("с каждого")
+                Text(LocalizationKeys.perPerson.localized)
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }
@@ -142,10 +143,15 @@ struct HistoryCard: View {
             
             Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.purple.opacity(0.5))
+                .foregroundColor(.purple)
+                .padding(12)
+                .background(
+                    Circle()
+                        .stroke(Color.purple.opacity(0.3), lineWidth: 2)
+                )
         }
         .padding()
-        .background(Color.white)
+        .background(Color.adaptiveCardBackground)
         .cornerRadius(16)
     }
     

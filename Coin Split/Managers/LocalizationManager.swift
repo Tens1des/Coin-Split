@@ -224,7 +224,7 @@ private let russianLocalization: [String: String] = [
     
     // Calculator
     "calculator.title": "Разделить счёт",
-    "calculator.subtitle": "Быстро и просто",
+    "calculator.subtitle": "Быстрее и проще",
     "calculator.bill_amount": "Сумма счёта",
     "calculator.participants": "Участники",
     "calculator.split_mode.equal": "Поровну",
@@ -240,6 +240,7 @@ private let russianLocalization: [String: String] = [
     "calculator.group_name": "Название группы (опционально)",
     "calculator.group_name_placeholder": "Например: Обед с друзьями",
     "calculator.save_title": "Сохранить расчёт",
+    "total": "всего",
     
     // History
     "history.title": "История",
@@ -314,6 +315,7 @@ private let englishLocalization: [String: String] = [
     "calculator.group_name": "Group name (optional)",
     "calculator.group_name_placeholder": "e.g. Dinner with friends",
     "calculator.save_title": "Save calculation",
+    "total": "total",
     
     // History
     "history.title": "History",
@@ -388,6 +390,7 @@ private let spanishLocalization: [String: String] = [
     "calculator.group_name": "Nombre del grupo (opcional)",
     "calculator.group_name_placeholder": "ej. Cena con amigos",
     "calculator.save_title": "Guardar cálculo",
+    "total": "total",
     
     // History
     "history.title": "Historial",
@@ -462,6 +465,7 @@ private let germanLocalization: [String: String] = [
     "calculator.group_name": "Gruppenname (optional)",
     "calculator.group_name_placeholder": "z.B. Abendessen mit Freunden",
     "calculator.save_title": "Berechnung speichern",
+    "total": "gesamt",
     
     // History
     "history.title": "Verlauf",
