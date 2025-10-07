@@ -361,7 +361,9 @@ struct SplitModeButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 15, weight: .semibold))
+                .font(.system(size: 14, weight: .semibold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
                 .foregroundColor(isSelected ? .white : .adaptiveSecondaryText)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)

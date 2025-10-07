@@ -223,6 +223,10 @@ struct LocalizationKeys {
     static let achievementExpert = "achievement.expert"
     static let achievementLegend = "achievement.legend"
     static let achievementMaster = "achievement.master"
+    
+    // Achievements controls
+    static let achievementsShowAll = "achievements.show_all"
+    static let achievementsShowLess = "achievements.show_less"
 }
 
 // MARK: - Localization Dictionaries
@@ -250,7 +254,7 @@ private let russianLocalization: [String: String] = [
     "calculator.bill_amount": "Сумма счёта",
     "calculator.participants": "Участники",
     "calculator.split_mode.equal": "Поровну",
-    "calculator.split_mode.percentage": "Проценты",
+    "calculator.split_mode.percentage": "Процент",
     "calculator.split_mode.manual": "Вручную",
     "calculator.tips": "Чаевые",
     "calculator.per_person": "С каждого",
@@ -321,7 +325,11 @@ private let russianLocalization: [String: String] = [
     "achievement.collector": "Коллекционер",
     "achievement.expert": "Эксперт",
     "achievement.legend": "Легенда",
-    "achievement.master": "Мастер"
+    "achievement.master": "Мастер",
+    
+    // Achievements controls
+    "achievements.show_all": "Показать все",
+    "achievements.show_less": "Свернуть"
 ]
 
 private let englishLocalization: [String: String] = [
@@ -418,7 +426,11 @@ private let englishLocalization: [String: String] = [
     "achievement.collector": "Collector",
     "achievement.expert": "Expert",
     "achievement.legend": "Legend",
-    "achievement.master": "Master"
+    "achievement.master": "Master",
+    
+    // Achievements controls
+    "achievements.show_all": "Show all",
+    "achievements.show_less": "Show less"
 ]
 
 private let spanishLocalization: [String: String] = [
@@ -515,7 +527,11 @@ private let spanishLocalization: [String: String] = [
     "achievement.collector": "Coleccionista",
     "achievement.expert": "Experto",
     "achievement.legend": "Leyenda",
-    "achievement.master": "Maestro"
+    "achievement.master": "Maestro",
+    
+    // Achievements controls
+    "achievements.show_all": "Mostrar todo",
+    "achievements.show_less": "Mostrar menos"
 ]
 
 private let germanLocalization: [String: String] = [
@@ -612,5 +628,9 @@ private let germanLocalization: [String: String] = [
     "achievement.collector": "Sammler",
     "achievement.expert": "Experte",
     "achievement.legend": "Legende",
-    "achievement.master": "Meister"
+    "achievement.master": "Meister",
+    
+    // Achievements controls
+    "achievements.show_all": "Alle anzeigen",
+    "achievements.show_less": "Weniger anzeigen"
 ]

@@ -11,6 +11,7 @@ struct ProfileView: View {
     @ObservedObject var dataManager = DataManager.shared
     @State private var showingEditProfile = false
     @State private var selectedAchievement: Achievement?
+    @State private var showAllAchievements: Bool = false
     @ObservedObject var localizationManager = LocalizationManager.shared
     
     var body: some View {
@@ -123,6 +124,25 @@ struct ProfileView: View {
                         ProgressView(value: Double(dataManager.profile.unlockedAchievementsCount), total: Double(dataManager.profile.achievements.count))
                             .tint(.purple)
                             .padding(.horizontal)
+
+                        // Кнопка раскрытия/сворачивания
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                                    showAllAchievements.toggle()
+                                }
+                            }) {
+                                HStack(spacing: 6) {
+                                    Text(showAllAchievements ? LocalizationKeys.achievementsShowLess.localized : LocalizationKeys.achievementsShowAll.localized)
+                                        .font(.dynamicBody(.semibold))
+                                    Image(systemName: showAllAchievements ? "chevron.up" : "chevron.down")
+                                        .font(.system(size: 14, weight: .semibold))
+                                }
+                                .foregroundColor(.purple)
+                            }
+                        }
+                        .padding(.horizontal)
                         
                         // Сетка достижений
                         LazyVGrid(columns: [
@@ -131,7 +151,8 @@ struct ProfileView: View {
                             GridItem(.flexible()),
                             GridItem(.flexible())
                         ], spacing: 16) {
-                            ForEach(dataManager.profile.achievements) { achievement in
+                            let items = showAllAchievements ? dataManager.profile.achievements : Array(dataManager.profile.achievements.prefix(8))
+                            ForEach(items) { achievement in
                                 Button(action: {
                                     selectedAchievement = achievement
                                 }) {
