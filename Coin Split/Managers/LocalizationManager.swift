@@ -201,6 +201,28 @@ struct LocalizationKeys {
     static let splitDetailShare = "split_detail.share"
     static let splitDetailDelete = "split_detail.delete"
     static let splitDetailParticipantNumber = "split_detail.participant_number"
+    
+    // Achievements
+    static let achievementFirstSplit = "achievement.first_split"
+    static let achievementFairSplit = "achievement.fair_split"
+    static let achievementMathematician = "achievement.mathematician"
+    static let achievementGenerous = "achievement.generous"
+    static let achievementHistorian = "achievement.historian"
+    static let achievementArchivist = "achievement.archivist"
+    static let achievementFlexible = "achievement.flexible"
+    static let achievementPrecise = "achievement.precise"
+    static let achievementOrganizer = "achievement.organizer"
+    static let achievementVisualizer = "achievement.visualizer"
+    static let achievementRepeater = "achievement.repeater"
+    static let achievementFinancialGuru = "achievement.financial_guru"
+    static let achievementBigCompany = "achievement.big_company"
+    static let achievementEconomist = "achievement.economist"
+    static let achievementQuickCalc = "achievement.quick_calc"
+    static let achievementTipMaster = "achievement.tip_master"
+    static let achievementCollector = "achievement.collector"
+    static let achievementExpert = "achievement.expert"
+    static let achievementLegend = "achievement.legend"
+    static let achievementMaster = "achievement.master"
 }
 
 // MARK: - Localization Dictionaries
@@ -277,7 +299,29 @@ private let russianLocalization: [String: String] = [
     "settings.danger_zone_subtitle": "Необратимые действия",
     "settings.clear_history": "Очистить всю историю",
     "settings.clear_history_alert_title": "Очистить всю историю?",
-    "settings.clear_history_alert_message": "Все расчёты будут удалены. Это действие нельзя отменить."
+    "settings.clear_history_alert_message": "Все расчёты будут удалены. Это действие нельзя отменить.",
+    
+    // Achievements
+    "achievement.first_split": "Первый шаг",
+    "achievement.fair_split": "Справедливость",
+    "achievement.mathematician": "Математик",
+    "achievement.generous": "Щедрый",
+    "achievement.historian": "Историк",
+    "achievement.archivist": "Архивариус",
+    "achievement.flexible": "Гибкость",
+    "achievement.precise": "Точный глаз",
+    "achievement.organizer": "Организатор",
+    "achievement.visualizer": "Визуализация",
+    "achievement.repeater": "Повторитель",
+    "achievement.financial_guru": "Финансовый гуру",
+    "achievement.big_company": "Большая компания",
+    "achievement.economist": "Экономист",
+    "achievement.quick_calc": "Быстрый расчёт",
+    "achievement.tip_master": "Мастер чаевых",
+    "achievement.collector": "Коллекционер",
+    "achievement.expert": "Эксперт",
+    "achievement.legend": "Легенда",
+    "achievement.master": "Мастер"
 ]
 
 private let englishLocalization: [String: String] = [
@@ -352,7 +396,29 @@ private let englishLocalization: [String: String] = [
     "settings.danger_zone_subtitle": "Irreversible actions",
     "settings.clear_history": "Clear all history",
     "settings.clear_history_alert_title": "Clear all history?",
-    "settings.clear_history_alert_message": "All calculations will be deleted. This action cannot be undone."
+    "settings.clear_history_alert_message": "All calculations will be deleted. This action cannot be undone.",
+    
+    // Achievements
+    "achievement.first_split": "First Step",
+    "achievement.fair_split": "Fairness",
+    "achievement.mathematician": "Mathematician",
+    "achievement.generous": "Generous",
+    "achievement.historian": "Historian",
+    "achievement.archivist": "Archivist",
+    "achievement.flexible": "Flexible",
+    "achievement.precise": "Precise Eye",
+    "achievement.organizer": "Organizer",
+    "achievement.visualizer": "Visualization",
+    "achievement.repeater": "Repeater",
+    "achievement.financial_guru": "Financial Guru",
+    "achievement.big_company": "Big Company",
+    "achievement.economist": "Economist",
+    "achievement.quick_calc": "Quick Calculation",
+    "achievement.tip_master": "Tip Master",
+    "achievement.collector": "Collector",
+    "achievement.expert": "Expert",
+    "achievement.legend": "Legend",
+    "achievement.master": "Master"
 ]
 
 private let spanishLocalization: [String: String] = [
@@ -427,7 +493,29 @@ private let spanishLocalization: [String: String] = [
     "settings.danger_zone_subtitle": "Acciones irreversibles",
     "settings.clear_history": "Limpiar todo el historial",
     "settings.clear_history_alert_title": "¿Limpiar todo el historial?",
-    "settings.clear_history_alert_message": "Todos los cálculos serán eliminados. Esta acción no se puede deshacer."
+    "settings.clear_history_alert_message": "Todos los cálculos serán eliminados. Esta acción no se puede deshacer.",
+    
+    // Achievements
+    "achievement.first_split": "Primer Paso",
+    "achievement.fair_split": "Justicia",
+    "achievement.mathematician": "Matemático",
+    "achievement.generous": "Generoso",
+    "achievement.historian": "Historiador",
+    "achievement.archivist": "Archivista",
+    "achievement.flexible": "Flexible",
+    "achievement.precise": "Ojo Preciso",
+    "achievement.organizer": "Organizador",
+    "achievement.visualizer": "Visualización",
+    "achievement.repeater": "Repetidor",
+    "achievement.financial_guru": "Gurú Financiero",
+    "achievement.big_company": "Gran Compañía",
+    "achievement.economist": "Economista",
+    "achievement.quick_calc": "Cálculo Rápido",
+    "achievement.tip_master": "Maestro de Propinas",
+    "achievement.collector": "Coleccionista",
+    "achievement.expert": "Experto",
+    "achievement.legend": "Leyenda",
+    "achievement.master": "Maestro"
 ]
 
 private let germanLocalization: [String: String] = [
@@ -502,5 +590,27 @@ private let germanLocalization: [String: String] = [
     "settings.danger_zone_subtitle": "Unwiderrufliche Aktionen",
     "settings.clear_history": "Gesamten Verlauf löschen",
     "settings.clear_history_alert_title": "Gesamten Verlauf löschen?",
-    "settings.clear_history_alert_message": "Alle Berechnungen werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+    "settings.clear_history_alert_message": "Alle Berechnungen werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+    
+    // Achievements
+    "achievement.first_split": "Erster Schritt",
+    "achievement.fair_split": "Gerechtigkeit",
+    "achievement.mathematician": "Mathematiker",
+    "achievement.generous": "Großzügig",
+    "achievement.historian": "Historiker",
+    "achievement.archivist": "Archivar",
+    "achievement.flexible": "Flexibel",
+    "achievement.precise": "Präzises Auge",
+    "achievement.organizer": "Organisator",
+    "achievement.visualizer": "Visualisierung",
+    "achievement.repeater": "Wiederholer",
+    "achievement.financial_guru": "Finanz-Guru",
+    "achievement.big_company": "Große Gesellschaft",
+    "achievement.economist": "Ökonom",
+    "achievement.quick_calc": "Schnelle Berechnung",
+    "achievement.tip_master": "Trinkgeld-Meister",
+    "achievement.collector": "Sammler",
+    "achievement.expert": "Experte",
+    "achievement.legend": "Legende",
+    "achievement.master": "Meister"
 ]

@@ -26,6 +26,13 @@ class DataManager: ObservableObject {
         
         // Инициализируем менеджеры
         setupManagers()
+        
+        // Гарантируем, что профиль содержит актуальный набор достижений
+        self.profile.achievements = DataManager.mergeAchievements(
+            existing: self.profile.achievements,
+            withTemplates: Achievement.allAchievements
+        )
+        saveProfile()
     }
     
     private func setupManagers() {
@@ -94,9 +101,15 @@ class DataManager: ObservableObject {
     private static func loadProfile() -> UserProfile {
         guard let data = UserDefaults.standard.data(forKey: "profile_data"),
               let decoded = try? JSONDecoder().decode(UserProfile.self, from: data) else {
-            return UserProfile.defaultProfile
+            // Возвращаем профиль по умолчанию с актуальным списком ачивок
+            var def = UserProfile.defaultProfile
+            def.achievements = Achievement.allAchievements
+            return def
         }
-        return decoded
+        // Миграция достижений до актуального списка
+        var migrated = decoded
+        migrated.achievements = mergeAchievements(existing: decoded.achievements, withTemplates: Achievement.allAchievements)
+        return migrated
     }
     
     // MARK: - Settings
@@ -109,6 +122,13 @@ class DataManager: ObservableObject {
         LocalizationManager.shared.setLanguage(newSettings.language)
         ThemeManager.shared.setTheme(newSettings.theme)
         TextSizeManager.shared.setTextSize(newSettings.textSize)
+        
+        // Обновляем локализованные заголовки/иконки ачивок (сохраняя прогресс)
+        profile.achievements = DataManager.mergeAchievements(
+            existing: profile.achievements,
+            withTemplates: Achievement.allAchievements
+        )
+        saveProfile()
     }
     
     private func saveSettings() {
@@ -123,6 +143,27 @@ class DataManager: ObservableObject {
             return AppSettings.defaultSettings
         }
         return decoded
+    }
+
+    // MARK: - Achievements migration
+    private static func mergeAchievements(existing: [Achievement], withTemplates templates: [Achievement]) -> [Achievement] {
+        let existingById: [String: Achievement] = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
+        // Пробегаемся по актуальным шаблонам и переносим статус из существующих
+        let merged: [Achievement] = templates.map { template in
+            if let old = existingById[template.id] {
+                return Achievement(
+                    id: template.id,
+                    title: template.title, // локализованный заголовок из текущего словаря
+                    description: template.description,
+                    icon: template.icon,
+                    isUnlocked: old.isUnlocked,
+                    unlockedDate: old.unlockedDate
+                )
+            } else {
+                return template
+            }
+        }
+        return merged
     }
 }
 

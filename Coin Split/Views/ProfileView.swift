@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var dataManager = DataManager.shared
     @State private var showingEditProfile = false
+    @State private var selectedAchievement: Achievement?
     @ObservedObject var localizationManager = LocalizationManager.shared
     
     var body: some View {
@@ -131,7 +132,12 @@ struct ProfileView: View {
                             GridItem(.flexible())
                         ], spacing: 16) {
                             ForEach(dataManager.profile.achievements) { achievement in
-                                AchievementBadge(achievement: achievement)
+                                Button(action: {
+                                    selectedAchievement = achievement
+                                }) {
+                                    AchievementBadge(achievement: achievement)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                         .padding()
@@ -176,6 +182,9 @@ struct ProfileView: View {
                 dataManager.updateProfile(newProfile)
                 showingEditProfile = false
             }
+        }
+        .sheet(item: $selectedAchievement) { achievement in
+            AchievementDetailView(achievement: achievement)
         }
     }
     
