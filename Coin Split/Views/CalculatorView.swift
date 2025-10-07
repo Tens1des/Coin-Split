@@ -239,25 +239,31 @@ struct CalculatorView: View {
                 ForEach(0..<viewModel.participantCount, id: \.self) { index in
                     HStack(spacing: 12) {
                         // Имя участника (редактируемое)
-                        TextField("Участник \(index + 1)", text: Binding(
-                            get: {
-                                if participantNames.indices.contains(index) && !participantNames[index].isEmpty {
-                                    return participantNames[index]
+                        HStack(spacing: 8) {
+                            TextField("Участник \(index + 1)", text: Binding(
+                                get: {
+                                    if participantNames.indices.contains(index) && !participantNames[index].isEmpty {
+                                        return participantNames[index]
+                                    }
+                                    return "Участник \(index + 1)"
+                                },
+                                set: { newValue in
+                                    while participantNames.count <= index {
+                                        participantNames.append("")
+                                    }
+                                    participantNames[index] = newValue
                                 }
-                                return "Участник \(index + 1)"
-                            },
-                            set: { newValue in
-                                while participantNames.count <= index {
-                                    participantNames.append("")
-                                }
-                                participantNames[index] = newValue
-                            }
-                        ))
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
-                        
+                            ))
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                            
+                            Image(systemName: "pencil")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.white.opacity(0.7))
+                        }
+
                         Spacer()
-                        
+
                         Text(String(format: "%.2f", viewModel.amountPerPerson))
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.white)
